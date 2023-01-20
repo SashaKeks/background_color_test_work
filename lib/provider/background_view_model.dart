@@ -2,32 +2,36 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-class BackgroundState {
+class _BackgroundState {
   final Color backgroundColor;
   final Color textColor;
 
-  BackgroundState({required this.textColor, required this.backgroundColor});
+  _BackgroundState({required this.textColor, required this.backgroundColor});
 
-  BackgroundState copyWith({
+  _BackgroundState copyWith({
     Color? backgroundColor,
     Color? textColor,
   }) {
-    return BackgroundState(
+    return _BackgroundState(
       backgroundColor: backgroundColor ?? this.backgroundColor,
       textColor: textColor ?? this.textColor,
     );
   }
 }
 
+// ignore: public_member_api_docs
 class BackgroundViewModel extends ChangeNotifier {
-  BackgroundState state = BackgroundState(
+  _BackgroundState _state = _BackgroundState(
     backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
     textColor: const Color.fromRGBO(0, 0, 0, 1),
   );
 
-//''' Set random color to state'''
+  // ignore: public_member_api_docs
+  _BackgroundState get state => _state;
+
+  // ignore: public_member_api_docs
   void setColor() {
-    final backgroundColor = randomColor();
+    final backgroundColor = _randomColor();
     final textColor =
         (backgroundColor.red + backgroundColor.green + backgroundColor.blue) /
                     3 >
@@ -35,7 +39,7 @@ class BackgroundViewModel extends ChangeNotifier {
             ? Colors.black
             : Colors.white;
 
-    state = state.copyWith(
+    _state = state.copyWith(
       backgroundColor: backgroundColor,
       textColor: textColor,
     );
@@ -43,11 +47,13 @@ class BackgroundViewModel extends ChangeNotifier {
   }
 
 // '''Create random color'''
-  Color randomColor() {
+  Color _randomColor() {
+    const int rgbRandom = 266;
+
     return Color.fromRGBO(
-      Random().nextInt(266),
-      Random().nextInt(266),
-      Random().nextInt(266),
+      Random().nextInt(rgbRandom),
+      Random().nextInt(rgbRandom),
+      Random().nextInt(rgbRandom),
       1,
     );
   }
